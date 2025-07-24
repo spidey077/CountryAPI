@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Country Info Explorer</title>
+  <style>
+    :root {
+      --bg-dark: linear-gradient(135deg, #2c3e50, #3498db);
+      --bg-light: linear-gradient(135deg, #f2f2f2, #d3d3d3);
+      --text-dark: #fff;
+      --text-light: #2c3e50;
+      --card-bg-dark: #ffffff15;
+      --card-bg-light: #ffffffdd;
+      --input-bg-dark: #ffffffc9;
+      --input-bg-light: #f0f0f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-dark);
+      transition: all 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 40px;
+      border-radius: 20px;
+      background-color: var(--card-bg-dark);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      backdrop-filter: blur(10px);
+      transition: background 0.4s;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 25px;
+    }
+
+    .search-box {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background: var(--input-bg-dark);
+      color: #333;
+      outline: none;
+    }
+
+    button {
+      padding: 10px;
+      font-size: 1rem;
+      background-color: #2980b9;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #1abc9c;
+    }
+
+   .country-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: var(--card-bg-dark);
+  transition: background 0.3s ease;
+  flex-wrap: wrap;
+}
+
+.country-text {
+  flex: 1;
+  min-width: 200px;
+}
+
+.country-details h2 {
+  color: #ffdd57;
+  margin-bottom: 15px;
+}
+
+.country-details p {
+  margin: 8px 0;
+}
+
+.country-details img {
+  max-width: 180px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+
+    .theme-toggle {
+      position: fixed;
+      bottom: 35px;
+      right: 27px;
+      background-color: #333;
+      border: 2px solid #fff;
+      color: #fff;
+      border-radius: 20px;
+      width: 90px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.2);
+      text-align: center;
+      padding: 30px 0;
+      font-size: 0.9rem;
+      color: #eee;
+      width: 100%;
+    }
+
+    /* Light Theme */
+    body.light {
+      background: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.light .container,
+    body.light .country-details {
+      background: var(--card-bg-light);
+      color: #222;
+    }
+
+    body.light .theme-toggle {
+      background-color: #fff;
+      color: #2c3e50;
+      border-color: #2c3e50;
+    }
+
+    body.light .theme-toggle:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    body.light footer {
+    color: black;
+}
+
+    @media (min-width: 600px) {
+      .search-box {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+
+      input[type="text"] {
+        width: 70%;
+      }
+
+      button {
+        width: 30%;
+      }
+    }
+    #countryDetails p {
+  font-size: 1.1rem;
+  font-style: italic;
+  color: #ffdd57;
+}
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <h1>🌍 Country Info Explorer</h1>
+      <div class="search-box">
+        <input type="text" id="countryInput" placeholder="Enter country name..." />
+        <button id="searchBtn">Search</button>
+      </div>
+      <div id="countryDetails" class="country-details"></div>
+    </div>
+  </main>
+
+  <button class="theme-toggle" id="toggleTheme">🌙 Toggle</button>
+
+  <footer>
+    Developed by <strong>Imdadullah</strong> | 📧 imdadullahchishti@gmail.com
+  </footer>
+
+  <script>
+    const getsearch = document.getElementById("countryInput");
+    const details = document.getElementById("countryDetails");
+    const button = document.getElementById("searchBtn");
+    const toggleBtn = document.getElementById("toggleTheme");
+
+    button.addEventListener("click", async () => {
+  const countryName = getsearch.value.trim();
+
+  if (countryName === "") {
+    details.innerHTML = "<p>Please enter a valid country name.</p>";
+    return;
+  }
+ details.innerHTML = `<div class="loader"></div>`;
+
+
+  try {
+    const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+    const data = await response.json();
+
+    if (!data || !data[0]) {
+      details.innerHTML = "<p>No country found. Try again!</p>";
+      return;
+    }
+
+    const country = data[0];
+  details.innerHTML = `
+  <div class="country-details fade-in">
+    <div class="country-text">
+      <h2>${country.name.common}</h2>
+      <p><strong>Population:</strong> ${country.population.toLocaleString()}</p>
+      <p><strong>Capital:</strong> ${country.capital?.[0] || "N/A"}</p>
+      <p><strong>Region:</strong> ${country.region}</p>
+      <p><strong>Timezones:</strong> ${country.timezones?.join(', ')}</p>
+    </div>
+    <img src="${country.flags.png}" alt="Flag of ${country.name.common}">
+  </div>
+`;
+
+  } catch (e) {
+    details.innerHTML = "<p>❌ Failed to fetch data. Try again!</p>";
+  }
+});
+
+  </script>
+</body>
+</html>
