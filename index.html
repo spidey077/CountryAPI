@@ -107,14 +107,17 @@
 .country-text {
   flex: 1;
   min-width: 200px;
+    color: white;
 }
 
 .country-details h2 {
   margin-bottom: 15px;
+    color: white;
 }
 
 .country-details p {
   margin: 8px 0;
+    color: white;
 }
 
 .country-details img {
@@ -122,21 +125,16 @@
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
-.country-details,
-.country-text,
-.country-details h2,
-.country-details p {
-  color: white;
-}
 
-    body.light .container,body.light .country-details,
+
 body.light .country-text,
 body.light .country-details h2,
 body.light .country-details p {
   color: black;
-     background: var(--card-bg-light);
 }
-
+        body.light .container{
+color: black;
+     background: var(--card-bg-light);}
     .theme-toggle {
       position: fixed;
       bottom: 35px;
