@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Country Info Explorer</title>
   <style>
     :root {
       --bg-dark: linear-gradient(135deg, #2c3e50, #3498db);
       --bg-light: linear-gradient(135deg, #f2f2f2, #d3d3d3);
-      --text-dark: #fff;
+      --text-dark: #ffffff;
       --text-light: #2c3e50;
       --card-bg-dark: #ffffff15;
       --card-bg-light: #ffffffdd;
@@ -22,7 +23,8 @@
       box-sizing: border-box;
     }
 
-    html, body {
+    html,
+    body {
       height: 100%;
     }
 
@@ -92,49 +94,62 @@
       background-color: #1abc9c;
     }
 
-   .country-details {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  border-radius: 15px;
-  background-color: var(--card-bg-dark);
-  transition: background 0.3s ease;
-  flex-wrap: wrap;
-}
+    .country-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: var(--card-bg-dark);
+      transition: background-color 0.3s ease;
+      flex-wrap: wrap;
+    }
 
-.country-text {
-  flex: 1;
-  min-width: 200px;
-    color: white;
-}
+    .country-text {
+      flex: 1;
+      min-width: 200px;
+      color: white;
+    }
 
-.country-details h2 {
-  margin-bottom: 15px;
-    color: white;
-}
+    .country-details h2 {
+      margin-bottom: 15px;
+      color: white;
+    }
 
-.country-details p {
-  margin: 8px 0;
-    color: white;
-}
+    body:not(.light) #countryDetails p {
+      color: #ffffff;
+    }
 
-.country-details img {
-  max-width: 180px;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-}
+    body.light #countryDetails p {
+      color: black;
+    }
+
+    #countryDetails p {
+      font-size: 1.1rem;
+      font-style: italic;
+    }
 
 
-body.light .country-text,
-body.light .country-details h2,
-body.light .country-details p {
-  color: black;
-}
-        body.light .container{
-color: black;
-     background: var(--card-bg-light);}
+
+    .country-details img {
+      max-width: 180px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+
+
+    body.light .country-text,
+    body.light .country-details h2,
+    body.light .country-details p {
+      color: black;
+    }
+
+    body.light .container {
+      color: black;
+      background: var(--card-bg-light);
+    }
+
     .theme-toggle {
       position: fixed;
       bottom: 35px;
@@ -177,9 +192,10 @@ color: black;
     body.light .theme-toggle:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
+
     body.light footer {
-    color: black;
-}
+      color: black;
+    }
 
     @media (min-width: 600px) {
       .search-box {
@@ -196,41 +212,48 @@ color: black;
         width: 30%;
       }
     }
+
     #countryDetails p {
-  font-size: 1.1rem;
-  font-style: italic;
-  color: #ffdd57;
-}
-.fade-in {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeIn 0.5s ease-in-out forwards;
-}
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #ffdd57;
+    }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+    .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeIn 0.5s ease-in-out forwards;
+    }
 
-.loader {
-  border: 6px solid #f3f3f3;
-  border-top: 6px solid #3498db;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin: 20px auto;
-}
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
 
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
+
 <body>
   <main>
     <div class="container">
@@ -254,30 +277,30 @@ color: black;
     const details = document.getElementById("countryDetails");
     const button = document.getElementById("searchBtn");
     const toggleBtn = document.getElementById("toggleTheme");
- toggleBtn.addEventListener("click", () => {
+    toggleBtn.addEventListener("click", () => {
       document.body.classList.toggle("light");
     });
     button.addEventListener("click", async () => {
-  const countryName = getsearch.value.trim();
+      const countryName = getsearch.value.trim();
 
-  if (countryName === "") {
-    details.innerHTML = "<p>Please enter a valid country name.</p>";
-    return;
-  }
- details.innerHTML = `<div class="loader"></div>`;
+      if (countryName === "") {
+        details.innerHTML = "<p>Please enter a valid country name.</p>";
+        return;
+      }
+      details.innerHTML = `<div class="loader"></div>`;
 
 
-  try {
-    const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
-    const data = await response.json();
+      try {
+        const response = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
+        const data = await response.json();
 
-    if (!data || !data[0]) {
-      details.innerHTML = "<p>No country found. Try again!</p>";
-      return;
-    }
+        if (!data || !data[0]) {
+          details.innerHTML = "<p>No country found. Try again!</p>";
+          return;
+        }
 
-    const country = data[0];
-  details.innerHTML = `
+        const country = data[0];
+        details.innerHTML = `
   <div class="country-details fade-in">
     <div class="country-text">
       <h2>${country.name.common}</h2>
@@ -290,11 +313,12 @@ color: black;
   </div>
 `;
 
-  } catch (e) {
-    details.innerHTML = "<p>❌ Failed to fetch data. Try again!</p>";
-  }
-});
+      } catch (e) {
+        details.innerHTML = "<p>❌ Failed to fetch data. Try again!</p>";
+      }
+    });
 
   </script>
 </body>
+
 </html>
