@@ -251,7 +251,9 @@
     const details = document.getElementById("countryDetails");
     const button = document.getElementById("searchBtn");
     const toggleBtn = document.getElementById("toggleTheme");
-
+ toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+    });
     button.addEventListener("click", async () => {
   const countryName = getsearch.value.trim();
 
