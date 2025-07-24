@@ -110,7 +110,6 @@
 }
 
 .country-details h2 {
-  color: #ffdd57;
   margin-bottom: 15px;
 }
 
@@ -123,10 +122,20 @@
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
 }
-body.light .country-text {
-  color: black;
+.country-details,
+.country-text,
+.country-details h2,
+.country-details p {
+  color: white;
 }
 
+    body.light .container,body.light .country-details,
+body.light .country-text,
+body.light .country-details h2,
+body.light .country-details p {
+  color: black;
+     background: var(--card-bg-light);
+}
 
     .theme-toggle {
       position: fixed;
@@ -156,16 +165,9 @@ body.light .country-text {
       width: 100%;
     }
 
-    /* Light Theme */
     body.light {
       background: var(--bg-light);
       color: var(--text-light);
-    }
-
-    body.light .container,
-    body.light .country-details {
-      background: var(--card-bg-light);
-      color: #222;
     }
 
     body.light .theme-toggle {
